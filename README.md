@@ -34,6 +34,8 @@ Developer → GitHub → Jenkins → Build/Test → SonarQube → Quality Gate
 
 ```
 ci-cd-quality-lab/
+├── infra/
+    └── docker-compose.yaml # Infra local do Sonar (SonarQube + Postgres)
 ├── Jenkinsfile
 ├── pom.xml
 ├── README.md
