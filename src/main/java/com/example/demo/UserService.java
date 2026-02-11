@@ -1,24 +1,32 @@
 package com.example.demo;
 
+import java.util.Locale;
+import java.util.logging.Logger;
+
 public class UserService {
 
-    public String login(String user, String password) {
+    private static final Logger logger = Logger.getLogger(UserService.class.getName());
 
-        // senha hardcoded (security hotspot)
-        if (password.equals("admin123")) {
-            System.out.println("Admin logged");
+    public String login(String user, String password) {
+        String adminPassword = System.getenv("ADMIN_PASSWORD");
+
+        // validação básica (evita NPE e comportamento estranho)
+        if (password == null || password.isBlank()) {
+            logger.warning("Auth failed: empty password");
+            return "UNAUTHORIZED";
+        }
+
+        // admin login (segredo vem do ambiente/CI)
+        if (adminPassword != null && !adminPassword.isBlank() && adminPassword.equals(password)) {
+            logger.info("Admin authenticated");
             return "OK";
         }
 
-        // método confuso + exceção engolida
-        try {
-            if (user == null) {
-                return null;
-            }
-
-            return user.toLowerCase();
-        } catch (Exception e) {
-            return null;
+        // regra simples para usuário comum
+        if (user == null || user.isBlank()) {
+            return "INVALID_USER";
         }
+
+        return user.toLowerCase(Locale.ROOT);
     }
 }
