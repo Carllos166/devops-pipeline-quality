@@ -7,12 +7,14 @@ pipeline {
   }
 
   stages {
+    
+    // Jenkins faz automaticamente checkout SCM no inicio de qualquer pipeline
 
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
-    }
+    // stage('Checkout') {
+    //   steps {
+    //     checkout scm
+    //   }
+    // }
 
     stage('Build & Test') {
       steps {
