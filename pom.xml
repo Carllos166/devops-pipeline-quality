@@ -14,14 +14,22 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
 
-    <!-- Configurações do Sonar -->
+    <groovy.version>3.0.21</groovy.version>
+
     <sonar.projectKey>sonar-demo</sonar.projectKey>
     <sonar.projectName>Sonar Demo</sonar.projectName>
     <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
   </properties>
 
   <dependencies>
-    <!-- JUnit só pra existir teste -->
+    <!-- Groovy runtime -->
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy</artifactId>
+      <version>${groovy.version}</version>
+    </dependency>
+
+    <!-- JUnit 5 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -33,7 +41,22 @@
   <build>
     <plugins>
 
-      <!-- Compilador -->
+      <!-- Compila Groovy (main + test) -->
+      <plugin>
+        <groupId>org.codehaus.gmavenplus</groupId>
+        <artifactId>gmavenplus-plugin</artifactId>
+        <version>3.0.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>compileTests</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Compilador Java (pode ficar) -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>

@@ -16,19 +16,14 @@ pipeline {
     //   }
     // }
 
-    stage('Build & Test') {
-      steps {
-        sh 'mvn clean verify'
-      }
-    }
-
     stage('SonarQube Analysis') {
       steps {
         withSonarQubeEnv('sonarqube') {
-          sh 'mvn sonar:sonar'
+          sh 'mvn clean verify sonar:sonar'
         }
       }
     }
+
 
     stage('Quality Gate') {
       steps {
