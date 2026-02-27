@@ -1,7 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -16,9 +15,18 @@
 
     <groovy.version>3.0.21</groovy.version>
 
+    <!-- Sonar -->
     <sonar.projectKey>sonar-demo</sonar.projectKey>
     <sonar.projectName>Sonar Demo</sonar.projectName>
     <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+
+    <!-- Força o Sonar a analisar Groovy -->
+    <sonar.sources>src/main/groovy</sonar.sources>
+    <sonar.tests>src/test/groovy</sonar.tests>
+    <sonar.inclusions>**/*.groovy</sonar.inclusions>
+
+    <!-- Evita warning de versão "implícita" -->
+    <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
   </properties>
 
   <dependencies>
@@ -68,6 +76,16 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
+        <configuration>
+          <useModulePath>false</useModulePath>
+        </configuration>
+      </plugin>
+
+      <!-- Sonar Maven Plugin com versão fixa -->
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>${sonar-maven-plugin.version}</version>
       </plugin>
 
     </plugins>
