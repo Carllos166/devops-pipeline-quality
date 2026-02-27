@@ -1,0 +1,11 @@
+package com.example.demo
+
+import org.junit.jupiter.api.Test
+
+class DemoApplicationTest {
+
+  @Test
+  void "main deve executar sem explodir"() {
+    DemoApplication.main(new String[0])
+  }
+}
