@@ -27,6 +27,9 @@
 
     <!-- Evita warning de versão "implícita" -->
     <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
+    
+    <!--Sonar pegar o XML do JaCoCo-->
+    <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
   </properties>
 
   <dependencies>
@@ -79,6 +82,31 @@
         <configuration>
           <useModulePath>false</useModulePath>
         </configuration>
+      </plugin>
+
+      <!-- JaCoCo: cobertura de testes -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+        <executions>
+          <!-- prepara o agent antes de rodar os testes -->
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+
+          <!-- gera o relatório depois dos testes -->
+          <execution>
+            <id>report</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <!-- Sonar Maven Plugin com versão fixa -->
